@@ -4,9 +4,6 @@
 
 @section scripts{
 
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-
     <script type="text/javascript">
         var list = [];
 
@@ -69,12 +66,13 @@
         <h4>1.Bingo Game</h4>
         <input type="text" class="form-control" name="val1" id="val1" />
         <button type="button" onclick="addBingo()" class="btn btn-info">Add</button>
-        <button type="button" onclick="submitForm()" class="btn btn-primary">Check</button>
-        <p id="demo"></p>
+        [<span id="demo"></span>]
+        <button type="button" onclick="submitFormBingo()" class="btn btn-primary">Check</button>
+
 
         <hr />
         <h4>2.Formular Calculation</h4>
-        <input type="text" class="form-control" name="expression" id="expression"/>
+        <input type="text" class="form-control" name="expression" id="expression" />
         <button type="submit" class="btn btn-primary" onclick="submitFormCal()">Calculate</button>
 
 
