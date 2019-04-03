@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@section scripts{
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    <script type="text/javascript">
+        var list = [];
+
+        function ShowResult1(data) {
+            if (data) { alert("Bingo") }
+            else alert("Not Bingo");
+        }
+
+        function ShowResult2(data) {
+            alert(data);
+        }
+
+        function addBingo() {
+            var txt = document.getElementById("val1").value;
+            list.push(txt);
+            document.getElementById("demo").innerHTML = list;
+            document.getElementById("val1").value = "";
+        }
+
+        function submitFormBingo() {
+            jQuery.ajax({
+                type: "POST",
+                url: "@Url.Action("Bingo","Home")",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ value: list }),
+                success: function (data) {
+                    ShowResult1(data);
+                    list = [];
+                    document.getElementById("demo").innerHTML = list;
+                },
+                failure: function (errMsg) {
+                    alert(errMsg);
+                }
+            });
+        }
+
+        function submitFormCal() {
+            var val = document.getElementById("expression").value;
+            jQuery.ajax({
+                type: "POST",
+                url: "@Url.Action("Calculation","Home")",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ expression: val }),
+                success: function (data) {
+                    ShowResult2(data);
+                },
+                failure: function (errMsg) {
+                    alert(errMsg);
+                }
+            });
+        }
+
+
+    </script>
+}
+
+    <div>
+        <h4>1.Bingo Game</h4>
+        <input type="text" class="form-control" name="val1" id="val1" />
+        <button type="button" onclick="addBingo()" class="btn btn-info">Add</button>
+        <button type="button" onclick="submitForm()" class="btn btn-primary">Check</button>
+        <p id="demo"></p>
+
+        <hr />
+        <h4>2.Formular Calculation</h4>
+        <input type="text" class="form-control" name="expression" id="expression"/>
+        <button type="submit" class="btn btn-primary" onclick="submitFormCal()">Calculate</button>
+
+
+    </div>
